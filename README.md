@@ -1,4 +1,6 @@
 # Neovim-Config
-configuration for nvim
+Configuration for nvim
 ## Installation
-all you need to pre-install is nvim packer. Then just put these files in the nvim config folder
+All you need to pre-install is nvim packer. Then just put these files in the nvim config folder
+
+Treesitter works with LLVM and MinGW. I HAD to install it with Chocolatey for it to work.
