@@ -1,3 +1,4 @@
 plugin/
 test.cpp
 .gitignore
+nvim.zip

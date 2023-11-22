@@ -1,2 +1,2 @@
 require("subnite")
-print("hello from lua")
+print("intialising complete!")
