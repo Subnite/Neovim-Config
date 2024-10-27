@@ -7,13 +7,59 @@ vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 -- TODO somethin
 return {
   -- Colorscheme Kanagawa Theme
+  -- {
+  --   'rebelot/kanagawa.nvim',
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd.colorscheme 'kanagawa-wave'
+  --   end,
+  --   transparent = true,
+  -- },
   {
-    'rebelot/kanagawa.nvim',
+    "folke/tokyonight.nvim",
+    lazy = true,
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'kanagawa-wave'
+      vim.cmd.colorscheme 'tokyonight'
+      --
+      -- -- NOTE: don't enable these
+      -- vim.cmd[[highlight Normal ctermbg=0 guibg=0]]
+      -- vim.cmd[[highlight NonText ctermbg=0 guibg=0]]
+      -- vim.cmd[[highlight SignColumn ctermbg=0 guibg=0]]
+      --
+      -- vim.cmd[[highlight TelescopeNormal ctermbg=0 guibg=0]]
+      -- vim.cmd[[highlight TelescopePreviewNormal ctermbg=0 guibg=0]]
+      -- vim.cmd[[highlight TelescopeResultsNormal ctermbg=0 guibg=0]]
+      -- vim.cmd[[highlight TelescopePromptNormal ctermbg=0 guibg=0]]
+    end,
+
+  },
+
+  {
+    "scottmckendry/cyberdream.nvim",
+    lazy = true,
+    priority = 1000,
+    config = function ()
+      -- vim.cmd.colorscheme 'cyberdream'
     end,
   },
+
+  {
+    'tribela/transparent.nvim',
+    event = 'VimEnter',
+    --[[ config = true, ]]
+    opts = {
+      auto = true, -- Automatically applies transparent
+      extra_groups = { 'StatusLine'}, -- If you want to add some groups to be transparent. eg: { 'Pmenu', 'CocFloating' }
+      excludes = {}, -- If you want to excludes from default transparent groups. eg: { 'LineNr' }
+    },
+    config = function()
+      vim.cmd[[TransparentToggle]]
+      vim.cmd[[TransparentEnable]]
+    end,
+
+  },
+
 
   -- file browser
   {
@@ -24,8 +70,6 @@ return {
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
     },
-    config = function ()
-    end,
   },
 
   -- NOTE: this is for all the comment colors for note, fix, ...
@@ -45,7 +89,7 @@ return {
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" },
   },
-  
+
   {
     "mfussenegger/nvim-dap"
   },
@@ -62,5 +106,19 @@ return {
       handlers = {},
       ensure_installed = { "codelldb", "cpptools" }
     },
+  },
+
+  {
+  "jackMort/ChatGPT.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("chatgpt").setup()
+    end,
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "folke/trouble.nvim", -- optional
+      "nvim-telescope/telescope.nvim"
+    }
   },
 }

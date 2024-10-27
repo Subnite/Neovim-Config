@@ -84,6 +84,13 @@ require('telescope').setup {
         ['<C-d>'] = false,
       },
     },
+    file_ignore_patterns = {
+      "builds/*",
+      "build/*",
+      "bin/*",
+      "target/*",
+      "libs/*",
+    },
   },
 }
 
@@ -154,10 +161,17 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
 
 -- HACK: added this one myself!
+vim.keymap.set('n', '<leader>sN', function()
+  require('telescope.builtin').live_grep {cwd = vim.fn.stdpath 'config'}
+end,
+  {desc = '[S]earch [N]eovim fuzzy'})
+
+-- HACK: added this one myself!
 vim.keymap.set('n', '<leader>sn', function()
   require('telescope.builtin').find_files {cwd = vim.fn.stdpath 'config'}
 end,
   {desc = '[S]earch [N]eovim files'})
+
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -280,16 +294,24 @@ local on_attach = function(_, bufnr)
 end
 
 -- document existing key chains
-require('which-key').register {
-  ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-  ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-  ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
-  -- ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
-  ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-  ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-  ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
-  ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-}
+require('which-key').add ({
+  {'<leader>c', group = '[C]ode' },
+  {'<leader>c_', hidden = true },
+  {'<leader>d', group = '[D]ebug'},
+  {'<leader>d_', hidden = true },
+  {'<leader>g', group = '[G]it'},
+  {'<leader>g_', hidden = true },
+  {'<leader>r', group = '[R]ename'},
+  {'<leader>r_', hidden = true },
+  {'<leader>s', group = '[S]earch'},
+  {'<leader>s_', hidden = true },
+  {'<leader>t', group = '[T]oggle'},
+  {'<leader>t_', hidden = true },
+  {'<leader>w', group = '[W]orkspace'},
+  {'<leader>w_', hidden = true },
+})
+
+
 -- register which-key VISUAL mode
 -- required for visual <leader>hs (hunk stage) to work
 
@@ -363,6 +385,7 @@ local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
+require('luasnip').filetype_extend("cpp", {"cppdoc"})
 
 cmp.setup {
   snippet = {
