@@ -1,5 +1,5 @@
 -- HACK: Harpoon setup
-local utils = require('custom.utils')
+local utils = require('utils')
 local wk = require("which-key")
 
 

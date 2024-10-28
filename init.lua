@@ -17,13 +17,11 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
   spec = {
-    {import = 'kickstart.plugins'},
-    {import = 'custom.plugins'},
+    {import = 'plugins'},
   },
   opts = {
     -- colorscheme = "tokyonight",
   },
 }, {})
 
-require('kickstart.configs')
-require('custom.configs')
+require('configs')
