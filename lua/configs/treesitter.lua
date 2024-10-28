@@ -17,7 +17,7 @@ vim.defer_fn(function()
     modules = {},
     highlight = {
       enable = true,
-      disable = { 'c_sharp' } -- c_sharp doesn't work when using OmniSharp lsp. Disabling for now.
+      -- disable = { 'c_sharp' } -- c_sharp doesn't work when using OmniSharp lsp. Disabling for now.
     },
     indent = { enable = true },
     incremental_selection = {
