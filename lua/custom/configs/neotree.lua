@@ -17,7 +17,7 @@ require('neo-tree').setup({
     width = 30,
     mappings = {
       -- ["?"] = "thisisfake"       -- Look at the keymaps. <cmd> :help neo-tree-mappings shows instructions
-    },
+    }
   },
 })
 

@@ -18,7 +18,7 @@ return {
   {
     "folke/tokyonight.nvim",
     lazy = true,
-    priority = 1000,
+    priority = 999,
     config = function()
       vim.cmd.colorscheme 'tokyonight'
       --
@@ -38,7 +38,7 @@ return {
   {
     "scottmckendry/cyberdream.nvim",
     lazy = true,
-    priority = 1000,
+    priority = 999,
     config = function ()
       -- vim.cmd.colorscheme 'cyberdream'
     end,
@@ -47,6 +47,7 @@ return {
   {
     'tribela/transparent.nvim',
     event = 'VimEnter',
+    priority = 1000,
     --[[ config = true, ]]
     opts = {
       auto = true, -- Automatically applies transparent
@@ -54,12 +55,11 @@ return {
       excludes = {}, -- If you want to excludes from default transparent groups. eg: { 'LineNr' }
     },
     config = function()
-      vim.cmd[[TransparentToggle]]
-      vim.cmd[[TransparentEnable]]
+      -- vim.cmd[[TransparentToggle]]
+      -- vim.cmd[[TransparentEnable]]
     end,
 
   },
-
 
   -- file browser
   {
@@ -82,7 +82,6 @@ return {
       -- refer to the configuration section below
     }
   },
-
 
   {
     "ThePrimeagen/harpoon",
@@ -121,4 +120,33 @@ return {
       "nvim-telescope/telescope.nvim"
     }
   },
+
+  {
+    'nvimdev/dashboard-nvim',
+    event = 'VimEnter',
+    config = function()
+      require('dashboard').setup {
+        -- config
+        hide = {
+          "tabline",
+        },
+      }
+    end,
+    dependencies = { {'nvim-tree/nvim-web-devicons'}}
+  },
+
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    priority = 1000,
+    event = 'VimEnter',
+    lazy = false,
+    main = "ibl",
+    ---@module "ibl"
+    ---@type ibl.config
+    -- opts = {},
+    dependencies = {
+      "HiPhish/rainbow-delimiters.nvim"
+    },
+  },
+
 }
