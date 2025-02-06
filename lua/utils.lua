@@ -13,4 +13,16 @@ function utils.map(mode, lhs, rhs, opts)
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
+function utils.getOS()
+    -- Check the `package.config` for directory separator.
+    -- In Windows, the directory separator is `\`, while in Unix-like systems it's `/`.
+    local separator = package.config:sub(1,1)
+    
+    if separator == "\\" then
+        return "Windows"
+    else
+        return "Unix"
+    end
+end
+
 return utils

@@ -1,6 +1,8 @@
+local utils = require('../utils')
 -- HACK: [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
+
 
 -- Set highlight on search
 vim.o.hlsearch = true
@@ -85,6 +87,15 @@ vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv") -- move line down(v)
 
 
 -- HACK: Terminal keybinds
+local getterminal = function()
+  if utils.getOS() == "Windows" then
+    return "powershell"
+  else
+    return "fish" -- kitty loads in separate windows :skull:
+  end
+end
 
-vim.keymap.set("n", "<leader>t", ":vsplit | terminal powershell<CR> | a")
+local terminalname = getterminal()
+
+vim.keymap.set("n", "<leader>t", ":vsplit | terminal " .. terminalname .. "<CR> | a")
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n><C-w>q")

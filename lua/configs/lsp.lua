@@ -81,6 +81,9 @@ local servers = {
       -- diagnostics = { disable = { 'missing-fields' } },
     },
   },
+  hyprls = {},
+  nil_ls = {}
+  -- rnix_lsp = {},
 }
 
 -- Setup neovim lua configuration

@@ -95,4 +95,16 @@ end,
 vim.keymap.set('n', '<leader>sn', function()
   require('telescope.builtin').find_files {cwd = vim.fn.stdpath 'config'}
 end,
-  {desc = '[S]earch [N]eovim files'})
+  {desc = '[S]earch [N]eovim files'}) 
+
+-- HACK: added this one myself!
+vim.keymap.set('n', '<leader>sc', function()
+  require('telescope.builtin').find_files {cwd = "/etc/nixos"}
+end,
+  {desc = '[S]earch nixos [C]onfig files'})
+
+-- HACK: added this one myself!
+vim.keymap.set('n', '<leader>sC', function()
+  require('telescope.builtin').live_grep {cwd = "/etc/nixos"}
+end,
+  {desc = '[S]earch nixos [C]onfig fuzzy'})
