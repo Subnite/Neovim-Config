@@ -1,5 +1,6 @@
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
+-- HACK: file_ignore_patterns should be changed by the user.
 require('telescope').setup {
   defaults = {
     mappings = {
@@ -85,26 +86,28 @@ vim.keymap.set('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by 
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
 
--- HACK: added this one myself!
+-- HACK: search neovim files.
 vim.keymap.set('n', '<leader>sN', function()
   require('telescope.builtin').live_grep {cwd = vim.fn.stdpath 'config'}
 end,
   {desc = '[S]earch [N]eovim fuzzy'})
 
--- HACK: added this one myself!
 vim.keymap.set('n', '<leader>sn', function()
   require('telescope.builtin').find_files {cwd = vim.fn.stdpath 'config'}
 end,
-  {desc = '[S]earch [N]eovim files'}) 
+  {desc = '[S]earch [N]eovim files'})
 
--- HACK: added this one myself!
-vim.keymap.set('n', '<leader>sc', function()
-  require('telescope.builtin').find_files {cwd = "/etc/nixos"}
-end,
-  {desc = '[S]earch nixos [C]onfig files'})
 
--- HACK: added this one myself!
-vim.keymap.set('n', '<leader>sC', function()
-  require('telescope.builtin').live_grep {cwd = "/etc/nixos"}
-end,
-  {desc = '[S]earch nixos [C]onfig fuzzy'})
+-- HACK: go to nixos config files if on unix system.
+local utils = require('../utils')
+if utils.getOS() == "Unix" then
+  vim.keymap.set('n', '<leader>sc', function()
+    require('telescope.builtin').find_files {cwd = "/etc/nixos"}
+  end,
+    {desc = '[S]earch nixos [C]onfig files'})
+
+  vim.keymap.set('n', '<leader>sC', function()
+    require('telescope.builtin').live_grep {cwd = "/etc/nixos"}
+  end,
+    {desc = '[S]earch nixos [C]onfig fuzzy'})
+end

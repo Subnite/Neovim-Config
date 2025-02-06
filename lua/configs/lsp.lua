@@ -82,7 +82,8 @@ local servers = {
     },
   },
   hyprls = {},
-  nil_ls = {}
+  nil_ls = {},
+  zls = {},                                             -- zig
   -- rnix_lsp = {},
 }
 

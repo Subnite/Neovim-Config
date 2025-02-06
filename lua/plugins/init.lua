@@ -186,9 +186,9 @@ return {
   {
   "jackMort/ChatGPT.nvim",
     event = "VeryLazy",
-    config = function()
-      require("chatgpt").setup()
-    end,
+    -- config = function()
+    --   require("chatgpt").setup()
+    -- end,
     dependencies = {
       "MunifTanjim/nui.nvim",
       "nvim-lua/plenary.nvim",
@@ -223,5 +223,15 @@ return {
     dependencies = {
       "HiPhish/rainbow-delimiters.nvim"
     },
+  },
+
+  {
+    'brianhuster/live-preview.nvim',
+      dependencies = {
+          -- You can choose one of the following pickers
+          'nvim-telescope/telescope.nvim',
+          -- 'ibhagwan/fzf-lua',
+          -- 'echasnovski/mini.pick',
+      },
   },
 }
