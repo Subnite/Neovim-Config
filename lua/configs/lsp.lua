@@ -1,5 +1,6 @@
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
+local utils = require("../utils")
 local on_attach = function(_, bufnr)
   local nmap = function(keys, func, desc)
     if desc then
@@ -56,81 +57,105 @@ require('which-key').add ({
 })
 
 
--- mason-lspconfig requires that these setup functions are called in this order
--- before setting up the servers.
-require('mason').setup()
-require('mason-lspconfig').setup()
+if utils.getOS() == "Windows" then
+  -- HACK: MASON BASED SETUP
 
--- Enable the following language servers
---  HACK: Update these as well
-local servers = {
-  clangd = {},                                          -- c, c++
-  -- csharp_ls = {},                                       -- c# replaced by OmniSharp later
-  rust_analyzer = {},                                   -- rust
-  html = { filetypes = { 'html', 'twig', 'hbs'} },      -- html
-  cmake = {},                                           -- cmake 
-  cssls = {},                                           -- css
-  jsonls = {},                                          -- json
-  marksman = {},                                        -- markdown
-  lemminx = {},                                         -- xml
-  lua_ls = {                                            -- lua
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-      -- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-      -- diagnostics = { disable = { 'missing-fields' } },
+  -- mason-lspconfig requires that these setup functions are called in this order
+  -- before setting up the servers.
+  require('mason').setup()
+  require('mason-lspconfig').setup()
+
+  -- Enable the following language servers
+  --  HACK: Update these as well
+  local servers = {
+    clangd = {},                                          -- c, c++
+    -- csharp_ls = {},                                       -- c# replaced by OmniSharp later
+    rust_analyzer = {},                                   -- rust
+    html = { filetypes = { 'html', 'twig', 'hbs'} },      -- html
+    cmake = {},                                           -- cmake 
+    cssls = {},                                           -- css
+    jsonls = {},                                          -- json
+    marksman = {},                                        -- markdown
+    lemminx = {},                                         -- xml
+    lua_ls = {                                            -- lua
+      Lua = {
+        workspace = { checkThirdParty = false },
+        telemetry = { enable = false },
+        -- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+        -- diagnostics = { disable = { 'missing-fields' } },
+      },
     },
-  },
-  hyprls = {},
-  nil_ls = {},
-  zls = {},                                             -- zig
-  -- rnix_lsp = {},
-}
+    hyprls = {},
+    nil_ls = {},
+    zls = {},                                             -- zig
+    -- rnix_lsp = {},
+  }
 
--- Setup neovim lua configuration
-require('neodev').setup()
+  -- Setup neovim lua configuration
+  require('neodev').setup()
 
--- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+  -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
--- Ensure the servers above are installed
-local mason_lspconfig = require 'mason-lspconfig'
+  -- Ensure the servers above are installed
+  local mason_lspconfig = require 'mason-lspconfig'
 
-mason_lspconfig.setup {
-ensure_installed = vim.tbl_keys(servers),
-}
+  mason_lspconfig.setup {
+    ensure_installed = vim.tbl_keys(servers),
+  }
 
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name],
-      filetypes = (servers[server_name] or {}).filetypes,
-    }
-  end,
-}
+  mason_lspconfig.setup_handlers {
+    function(server_name)
+      require('lspconfig')[server_name].setup {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = servers[server_name],
+        filetypes = (servers[server_name] or {}).filetypes,
+      }
+    end,
+  }
 
--- specific attach for omnisharp
-local on_attach_omnisharp = function(client, bufnr)
-  on_attach(client, bufnr) -- the normal on attach function
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc') -- Omnicompletion
+  -- specific attach for omnisharp
+  local on_attach_omnisharp = function(client, bufnr)
+    on_attach(client, bufnr) -- the normal on attach function
+    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc') -- Omnicompletion
+  end
+
+  -- Omnisharp/C#/Unity
+  local pid = vim.fn.getpid()
+  local omnisharp_bin = vim.fn.stdpath "data" .. "/mason/packages/omnisharp/libexec/OmniSharp.exe"
+  require'lspconfig'.omnisharp.setup{
+    on_attach = on_attach_omnisharp,
+    flags = {
+      debounce_text_changes = 150,
+    },
+    cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) },
+    root_dir = function ()
+      return vim.loop.cwd()
+    end,
+    enable_rosalyn_analyzers = true,
+    enable_import_completion = true,
+  }
+
+else
+  -- HACK: NIXOS BASED SETUP
+
+  local lspconfig = require("lspconfig")
+  local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+  
+  lspconfig.lua_ls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
+  lspconfig.rust_analyzer.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
+  lspconfig.zls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
+  lspconfig.nil_ls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
+  lspconfig.lemminx.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
+  lspconfig.marksman.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
+  lspconfig.superhtml.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
+  lspconfig.cmake.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
+  -- lspconfig.clangd.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
+  lspconfig.ccls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
+  -- lspconfig.csharp_ls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
+  lspconfig.hyprls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
+
 end
-
--- Omnisharp/C#/Unity
-local pid = vim.fn.getpid()
-local omnisharp_bin = vim.fn.stdpath "data" .. "/mason/packages/omnisharp/libexec/OmniSharp.exe"
-require'lspconfig'.omnisharp.setup{
-  on_attach = on_attach_omnisharp,
-  flags = {
-    debounce_text_changes = 150,
-  },
-  cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) },
-  root_dir = function ()
-    return vim.loop.cwd()
-  end,
-  enable_rosalyn_analyzers = true,
-  enable_import_completion = true,
-}
