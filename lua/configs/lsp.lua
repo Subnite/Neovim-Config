@@ -85,8 +85,6 @@ if utils.getOS() == "Windows" then
         -- diagnostics = { disable = { 'missing-fields' } },
       },
     },
-    hyprls = {},
-    nil_ls = {},
     zls = {},                                             -- zig
     -- rnix_lsp = {},
   }
@@ -124,19 +122,43 @@ if utils.getOS() == "Windows" then
   end
 
   -- Omnisharp/C#/Unity
-  local pid = vim.fn.getpid()
   local omnisharp_bin = vim.fn.stdpath "data" .. "/mason/packages/omnisharp/libexec/OmniSharp.exe"
-  require'lspconfig'.omnisharp.setup{
-    on_attach = on_attach_omnisharp,
+  local omnisharp_bin_win = "C:/Program Files/LSPs/omnisharp/OmniSharp.exe"
+  local omnisharp_dll_win = "C:/Program Files/LSPs/omnisharp/OmniSharp.dll"
+  local omnisharp_dll = vim.fn.stdpath "data" .. "\\mason\\packages\\omnisharp\\libexec\\OmniSharp.dll"
+  require('lspconfig').omnisharp.setup{
+    on_attach = on_attach, -- on_attach_omnisharp,
+    handlers = {
+        ["textDocument/definition"] = require('omnisharp_extended').handler,
+    },
     flags = {
       debounce_text_changes = 150,
     },
-    cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) },
-    root_dir = function ()
-      return vim.loop.cwd()
+    -- cmd = { omnisharp_bin_win, "--languageserver" , "--hostPID", tostring(vim.fn.getpid()) },
+    cmd = { "dotnet", omnisharp_dll },
+    root_dir = function (fname, _)
+      local lspconfig = require 'lspconfig'
+      local primary = lspconfig.util.root_pattern '*.sln'(fname)
+      local fallback = lspconfig.util.root_pattern '*.csproj'(fname)
+      return primary or fallback
     end,
-    enable_rosalyn_analyzers = true,
-    enable_import_completion = true,
+    settings = {
+      FormattingOptions = {
+        EnableEditorConfigSupport = true,
+        OrganizeImports = nil,
+      },
+      MsBuild = { LoadProjectsOnDemand = nil, },
+      RoslynExtensionsOptions = {
+        EnableAnalyzersSupport = true,
+        EnableImportCompletion = true,
+        AnalyzeOpenDocumentsOnly = nil,
+        EnableDecompilationSupport = true,
+      },
+      Sdk = {
+        IncludePrereleases = true,
+      },
+    },
+    capabilities = capabilities,
   }
 
 else

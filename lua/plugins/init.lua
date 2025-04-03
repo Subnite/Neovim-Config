@@ -15,6 +15,7 @@ return {
       'williamboman/mason-lspconfig.nvim',
       { 'j-hui/fidget.nvim', opts = {} },
       'folke/neodev.nvim',
+      'Hoffs/omnisharp-extended-lsp.nvim', -- for omnisharp
     },
   },
 
