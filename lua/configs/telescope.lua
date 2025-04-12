@@ -9,14 +9,27 @@ require('telescope').setup {
         ['<C-d>'] = false,
       },
     },
-    file_ignore_patterns = {
-      "builds/*",
-      "build/*",
-      "bin/*",
-      "target/*",
-      "libs/*",
-      "%.meta",
-    },
+    -- file_ignore_patterns = {
+    --   "builds/*",
+    --   "Builds/*",
+    --   "build/*",
+    --   "Build/*",
+    --   "bin/*",
+    --   "Bin/*",
+    --   "target/*",
+    --   "Target/*",
+    --   "libs/*",
+    --
+    --   -- unity --
+    --   "%.meta",
+    --   "%.csproj",
+    --   "%.prefab",
+    --   "Library/*",
+    --   "Packages/*",
+    --   "Logs/*",
+    --   "UserSettings/*",
+    --   "ProjectSettings/*",
+    -- },
   },
 }
 

@@ -42,4 +42,4 @@ require("ibl").setup {
     },
 }
 
-vim.cmd[[colorscheme tokyonight]]
+vim.cmd[[colorscheme cyberdream]]

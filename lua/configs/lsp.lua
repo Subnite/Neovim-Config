@@ -101,6 +101,7 @@ if utils.getOS() == "Windows" then
 
   mason_lspconfig.setup {
     ensure_installed = vim.tbl_keys(servers),
+    automatic_installation = false,
   }
 
   mason_lspconfig.setup_handlers {
@@ -166,7 +167,7 @@ else
 
   local lspconfig = require("lspconfig")
   local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-  
+
   lspconfig.lua_ls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
   lspconfig.rust_analyzer.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
   lspconfig.zls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })

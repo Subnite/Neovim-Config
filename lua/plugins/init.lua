@@ -97,7 +97,7 @@ return {
     lazy = true,
     priority = 999,
     config = function()
-      vim.cmd.colorscheme 'tokyonight'
+      -- vim.cmd.colorscheme 'tokyonight'
       --
       -- -- NOTE: don't enable these
       -- vim.cmd[[highlight Normal ctermbg=0 guibg=0]]
@@ -117,7 +117,7 @@ return {
     lazy = true,
     priority = 999,
     config = function ()
-      -- vim.cmd.colorscheme 'cyberdream'
+      vim.cmd.colorscheme 'cyberdream'
     end,
   },
 

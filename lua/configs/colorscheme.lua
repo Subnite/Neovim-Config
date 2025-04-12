@@ -49,10 +49,10 @@ require("cyberdream").setup({
     hide_fillchars = false,
 
     -- Modern borderless telescope theme - also applies to fzf-lua
-    borderless_pickers = false,
+    borderless_pickers = true,
 
     -- Set terminal colors used in `:terminal`
-    terminal_colors = true,
+    terminal_colors = false,
 
     -- Improve start up time by caching highlights. Generate cache with :CyberdreamBuildCache and clear with :CyberdreamClearCache
     cache = false,
@@ -65,35 +65,37 @@ require("cyberdream").setup({
             -- See `:h highlight-groups` for a list of highlight groups or run `:hi` to see all groups and their current values
 
             -- Example:
-            Comment = { fg = "#696969", bg = "NONE", italic = true },
+            Comment = { fg = "#696969", bg = "NONE", bg_alt = "NONE", bg_highlight = "NONE", italic = true },
 
             -- Complete list can be found in `lua/cyberdream/theme.lua`
         },
 
         -- Override a highlight group entirely using the color palette
-        overrides = function(colors) -- NOTE: This function nullifies the `highlights` option
+        -- overrides = function(colors) -- NOTE: This function nullifies the `highlights` option
             -- Example:
             -- return {
             --     Comment = { fg = colors.green, bg = "NONE", italic = true },
             --     ["@property"] = { fg = colors.magenta, bold = true },
             -- }
-        end,
+        -- end,
 
         -- Override a color entirely
-        -- colors = {
-        --     -- For a list of colors see `lua/cyberdream/colours.lua`
-        --     -- Example:
-        --     bg = "#000000",
-        --     green = "#00ff00",
-        --     magenta = "#ff00ff",
-        -- },
+        colors = {
+            -- For a list of colors see `lua/cyberdream/colours.lua`
+            -- Example:
+            bg = "NONE",
+            bg_alt = "NONE",
+            bg_highlight = "NONE",
+            -- green = "#00ff00",
+            -- magenta = "#ff00ff",
+        },
     },
 
     -- Disable or enable colorscheme extensions
-    -- extensions = {
-    --     telescope = true,
-    --     notify = true,
-    --     mini = true,
-    --     ...
-    -- },
+    extensions = {
+        telescope = true,
+        -- notify = true,
+        -- mini = true,
+        -- ...
+    },
 })
