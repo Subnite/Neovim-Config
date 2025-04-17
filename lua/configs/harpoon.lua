@@ -27,7 +27,7 @@ wk.add({
   {'<leader>h', group = "[H]arpoon"},
   {'<leader>h_', hidden = true},
   {'<leader>hx', function ()
-    harpoon:list():append()
+    harpoon:list():add()
   end, desc = "Mark file"},
 })
 require('telescope').load_extension('harpoon')

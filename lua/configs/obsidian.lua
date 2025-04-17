@@ -21,7 +21,7 @@ obsidian.setup({
   -- dir = "~/vaults/work",
 
   -- Optional, if you keep notes in a specific subdirectory of your vault.
-  -- notes_subdir = "notes",
+  notes_subdir = "98 - Temp",
 
   -- Optional, set the log level for obsidian.nvim. This is an integer corresponding to one of the log
   -- levels defined by "vim.log.levels.*".
@@ -45,7 +45,7 @@ obsidian.setup({
     -- Set to false to disable completion.
     nvim_cmp = true,
     -- Trigger completion at 2 chars.
-    min_chars = 1,
+    min_chars = 2,
   },
 
   -- Optional, configure key mappings. These are the defaults. If you don't want to set any keymappings this
@@ -343,6 +343,7 @@ require('which-key').add({
   {'<leader>ow', ':ObsidianWorkspace<cr>', desc = "[O]bsidian [W]orkspace"},
   {'<leader>or', ':ObsidianRename<cr>', desc = "[O]bsidian [R]ename current file"},
   {'<leader>op', ':ObsidianPasteImg<cr>', desc = "[O]bsidian [P]aste image"},
+  {'<leader>oc', ':ObsidianToggleCheckbox<cr>', desc = "[O]bsidian [C]heckbox toggle"},
 
   -- {'<leader>so', function()
   --   require('telescope.builtin').live_grep { cwd = obsidian_workspace_path }

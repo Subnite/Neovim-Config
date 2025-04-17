@@ -69,7 +69,7 @@ if utils.getOS() == "Windows" then
   --  HACK: Update these as well
   local servers = {
     clangd = {},                                          -- c, c++
-    -- csharp_ls = {},                                       -- c# replaced by OmniSharp later
+    csharp_ls = {},                                       -- c# replaced by OmniSharp later
     rust_analyzer = {},                                   -- rust
     html = { filetypes = { 'html', 'twig', 'hbs'} },      -- html
     cmake = {},                                           -- cmake 
@@ -115,6 +115,8 @@ if utils.getOS() == "Windows" then
     end,
   }
 
+  -- Omnisharp/C#/Unity
+  --[[
   -- specific attach for omnisharp
   local on_attach_omnisharp = function(client, bufnr)
     on_attach(client, bufnr) -- the normal on attach function
@@ -122,11 +124,10 @@ if utils.getOS() == "Windows" then
     buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc') -- Omnicompletion
   end
 
-  -- Omnisharp/C#/Unity
-  local omnisharp_bin = vim.fn.stdpath "data" .. "/mason/packages/omnisharp/libexec/OmniSharp.exe"
-  local omnisharp_bin_win = "C:/Program Files/LSPs/omnisharp/OmniSharp.exe"
-  local omnisharp_dll_win = "C:/Program Files/LSPs/omnisharp/OmniSharp.dll"
-  local omnisharp_dll = vim.fn.stdpath "data" .. "\\mason\\packages\\omnisharp\\libexec\\OmniSharp.dll"
+  -- local omnisharp_bin = vim.fn.stdpath "data" .. "/mason/packages/omnisharp/libexec/OmniSharp.exe"
+  -- local omnisharp_bin_win = "C:/Program Files/LSPs/omnisharp/OmniSharp.exe"
+  local omnisharp_dll = "C:/Program Files/LSPs/omnisharp/OmniSharp.dll"
+  -- local omnisharp_dll = vim.fn.stdpath "data" .. "\\mason\\packages\\omnisharp\\libexec\\OmniSharp.dll"
   require('lspconfig').omnisharp.setup{
     on_attach = on_attach, -- on_attach_omnisharp,
     handlers = {
@@ -145,14 +146,14 @@ if utils.getOS() == "Windows" then
     end,
     settings = {
       FormattingOptions = {
-        EnableEditorConfigSupport = true,
+        EnableEditorConfigSupport = true, -- true
         OrganizeImports = nil,
       },
-      MsBuild = { LoadProjectsOnDemand = nil, },
+      MsBuild = { LoadProjectsOnDemand = nil, }, -- nil
       RoslynExtensionsOptions = {
         EnableAnalyzersSupport = true,
         EnableImportCompletion = true,
-        AnalyzeOpenDocumentsOnly = nil,
+        AnalyzeOpenDocumentsOnly = nil, -- only real nil
         EnableDecompilationSupport = true,
       },
       Sdk = {
@@ -161,6 +162,8 @@ if utils.getOS() == "Windows" then
     },
     capabilities = capabilities,
   }
+
+  ]]--
 
 else
   -- HACK: NIXOS BASED SETUP
