@@ -38,8 +38,8 @@ require('gitsigns').setup({
     end, { expr = true, desc = 'Jump to previous hunk' })
 
     -- Toggles
-    map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = 'toggle git blame line' })
-    map('n', '<leader>td', gs.toggle_deleted, { desc = 'toggle git show deleted' })
+    map('n', '<leader>gb', gs.toggle_current_line_blame, { desc = 'toggle [G]it [B]lame line' })
+    map('n', '<leader>gd', gs.toggle_deleted, { desc = 'toggle [G]it show [D]eleted' })
 
     -- Text object
     map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'select git hunk' })
