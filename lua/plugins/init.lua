@@ -241,15 +241,5 @@ return {
 
       -- see below for full list of optional dependencies 👇
     },
-    opts = {
-      workspaces = {
-        {
-          name = "personal",
-          path = "~/OneDrive/Documenten/Obsidian Vault",
-        },
-      },
-
-      -- see below for full list of options 👇
-    },
   },
 }

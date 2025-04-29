@@ -1,6 +1,15 @@
 local obsidian = require('obsidian')
 
-local obsidian_workspace_path = "~/OneDrive/Documenten/Obsidian Vault"
+local utils = require('../utils')
+local get_workspace_path = function()
+  if utils.getOS() == "Unix" then
+    return "~/Documents/Obsidian Vault"
+  else
+    return "~/OneDrive/Documenten/Obsidian Vault"
+  end
+end
+
+local obsidian_workspace_path = get_workspace_path()
 
 obsidian.setup({
   -- A list of workspace names, paths, and configuration overrides.
