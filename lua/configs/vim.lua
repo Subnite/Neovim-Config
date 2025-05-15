@@ -112,3 +112,14 @@ local terminalname = getterminal()
 
 vim.keymap.set("n", "<leader>t", ":vsplit | terminal " .. terminalname .. "<CR> | a")
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n><C-w>q")
+
+-- HACK: Unmap arrow keys because I cannot trust my muscle memory (only in insert mode, duh)
+vim.keymap.set("n", "<left>", ":echo \"NO ARROWS!\" <CR>")
+vim.keymap.set("n", "<right>", ":echo \"NO ARROWS!\" <CR>")
+vim.keymap.set("n", "<up>", ":echo \"NO ARROWS!\" <CR>")
+vim.keymap.set("n", "<down>", ":echo \"NO ARROWS!\" <CR>")
+vim.keymap.set("v", "<left>", ":echo \"NO ARROWS!\" <CR>")
+vim.keymap.set("v", "<right>", ":echo \"NO ARROWS!\" <CR>")
+vim.keymap.set("v", "<up>", ":echo \"NO ARROWS!\" <CR>")
+vim.keymap.set("v", "<down>", ":echo \"NO ARROWS!\" <CR>")
+
