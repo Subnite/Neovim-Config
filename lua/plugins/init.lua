@@ -242,4 +242,9 @@ return {
       -- see below for full list of optional dependencies 👇
     },
   },
+
+  {
+    "uga-rosa/ccc.nvim",
+    lazy = true,
+  },
 }
