@@ -115,12 +115,12 @@ end,
 local utils = require('../utils')
 if utils.getOS() == "Unix" then
   vim.keymap.set('n', '<leader>sc', function()
-    require('telescope.builtin').find_files {cwd = "/etc/nixos"}
+    require('telescope.builtin').find_files {cwd = "~/nixos"}
   end,
     {desc = '[S]earch nixos [C]onfig files'})
 
   vim.keymap.set('n', '<leader>sC', function()
-    require('telescope.builtin').live_grep {cwd = "/etc/nixos"}
+    require('telescope.builtin').live_grep {cwd = "~/nixos"}
   end,
     {desc = '[S]earch nixos [C]onfig fuzzy'})
 end
