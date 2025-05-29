@@ -4,7 +4,7 @@ vim.opt.termguicolors = true
 
 ccc.setup({
   highlighter = {
-    auto_enable = true,
-    lsp = true,
+    auto_enable = false,
+    lsp = false,
   },
 })

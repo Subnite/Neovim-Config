@@ -30,7 +30,11 @@ require("ibl").setup {
             "dashboard"
         },
     },
-    indent = { highlight = colors--[[ , char = "~" ]] },
+    indent = {
+        highlight = colors,
+        char = "│",
+        tab_char = "",
+    },
     whitespace = {
         highlight = colors,
         remove_blankline_trail = false,
@@ -39,6 +43,8 @@ require("ibl").setup {
     scope = {
         highlight = colors,
         enabled = true,
+        show_start = false,
+        show_end = false,
     },
 }
 

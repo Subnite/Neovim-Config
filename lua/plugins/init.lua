@@ -45,12 +45,10 @@ return {
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
-    opts = {
-      options = {
-        icons_enabled = false,
-        component_separators = '|',
-        section_separators = '',
-      },
+    dependencies = {
+      'SmiteshP/nvim-navic',
+      'neovim/nvim-lspconfig',
+      'nvim-tree/nvim-web-devicons',
     },
   },
 

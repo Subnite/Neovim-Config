@@ -3,6 +3,9 @@
 -- HACK: file_ignore_patterns should be changed by the user.
 require('telescope').setup {
   defaults = {
+    layout_config = {
+      vertical = { width = 0.8 }
+    },
     mappings = {
       i = {
         ['<C-u>'] = false,
