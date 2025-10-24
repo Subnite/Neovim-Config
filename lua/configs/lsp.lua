@@ -186,7 +186,7 @@ else
   lspconfig.cmake.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
   -- lspconfig.clangd.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
   lspconfig.ccls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
-  -- lspconfig.csharp_ls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
+  lspconfig.csharp_ls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
   lspconfig.hyprls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
   lspconfig.ts_ls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
 
