@@ -73,6 +73,7 @@ if utils.getOS() == "Windows" then
   -- Enable the following language servers
   --  HACK: Update these as well
   local servers = {
+    bashls = {},
     clangd = {},                                          -- c, c++
     csharp_ls = {},                                       -- c# replaced by OmniSharp later
     rust_analyzer = {},                                   -- rust
@@ -176,6 +177,7 @@ else
   local lspconfig = require("lspconfig")
   local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+  lspconfig.bashls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
   lspconfig.lua_ls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
   lspconfig.rust_analyzer.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
   lspconfig.zls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
