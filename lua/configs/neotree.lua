@@ -4,12 +4,12 @@ require('neo-tree').setup({
   enable_git_status = true,
   filesystem = {
     filtered_items = {
-      hide_dotfiles = true,
+      hide_dotfiles = false,
       hide_gitignored = true,
     },
     follow_current_file = {
       enabled = true,
-    }, -- Sync tree with open file
+e   }, -- Sync tree with open file
     leave_dirs_open = true,
     -- hijack_netrw_behavior = "open_default", -- Replace netrw
   },

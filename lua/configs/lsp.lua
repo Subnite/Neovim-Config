@@ -174,22 +174,21 @@ if utils.getOS() == "Windows" then
 else
   -- HACK: NIXOS BASED SETUP
 
-  local lspconfig = require("lspconfig")
   local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-  lspconfig.bashls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
-  lspconfig.lua_ls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
-  lspconfig.rust_analyzer.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
-  lspconfig.zls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
-  lspconfig.nil_ls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
-  lspconfig.lemminx.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
-  lspconfig.marksman.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
-  lspconfig.superhtml.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
-  lspconfig.cmake.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
-  -- lspconfig.clangd.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
-  lspconfig.ccls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
-  lspconfig.csharp_ls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
-  lspconfig.hyprls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
-  lspconfig.ts_ls.setup({ capabilities = lsp_capabilities, on_attach = on_attach })
+  vim.lsp.config('bash_ls',        { capabilities = lsp_capabilities, on_attach = on_attach })
+  vim.lsp.config('lua_ls',        { capabilities = lsp_capabilities, on_attach = on_attach })
+  vim.lsp.config('rust_analyzer', { capabilities = lsp_capabilities, on_attach = on_attach })
+  vim.lsp.config('zls',           { capabilities = lsp_capabilities, on_attach = on_attach })
+  vim.lsp.config('nil_ls',        { capabilities = lsp_capabilities, on_attach = on_attach })
+  vim.lsp.config('lemminx',       { capabilities = lsp_capabilities, on_attach = on_attach })
+  vim.lsp.config('marksman',      { capabilities = lsp_capabilities, on_attach = on_attach })
+  vim.lsp.config('superhtml',     { capabilities = lsp_capabilities, on_attach = on_attach })
+  vim.lsp.config('cmake',         { capabilities = lsp_capabilities, on_attach = on_attach })
+  -- vim.lsp.config('clangd',        { capabilities = lsp_capabilities, on_attach = on_attach })
+  vim.lsp.config('ccls',          { capabilities = lsp_capabilities, on_attach = on_attach })
+  vim.lsp.config('csharp_ls',     { capabilities = lsp_capabilities, on_attach = on_attach })
+  vim.lsp.config('hyprls',        { capabilities = lsp_capabilities, on_attach = on_attach })
+  vim.lsp.config('ts_ls',         { capabilities = lsp_capabilities, on_attach = on_attach })
 
 end
